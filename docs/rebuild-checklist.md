@@ -1,34 +1,34 @@
-# SAP rebuild checklist
+# Project Setup
 
-This repository is designed to preserve source and project documentation outside the short-lived SAP practice environment. It is not a transport request or one-click installer.
+Follow these steps to create the project objects in SAP.
 
-## Dictionary objects
-- Domain `ZDM_ROLLNO`, CHAR 10
-- Data element `ZDE_ROLLNO`
-- Transparent table `ZSTU_MASTER`
-- Transparent table `ZSTU_MARKS`
-- Foreign key from marks to student master
+## 1. Create the database tables
 
-See [database setup](phase-1-database-setup.md).
+Create the roll-number domain and data element, then create the transparent tables:
 
-## Core reports
-Create executable programs in SE38 using the matching source files under `src/zch_*.abap`. Activate one at a time. Test CRUD programs only with synthetic records in a development client.
+- `ZSTU_MASTER`
+- `ZSTU_MARKS`
 
-## Module pool
-1. Create program `Z_STUDENT_MAJOR_PROG` (type M).
-2. Create the three includes and copy their matching source files.
-3. Create screens 0100 and 0200 using the dynpro specification.
-4. Create GUI statuses `S100`, `S200` and title bars `T100`, `T200`.
-5. Add custom control `MY_CONTAINER` on screen 0200.
-6. Create transaction `ZSTUDENT_APP` in SE93.
-7. Build and activate the SmartForm using the documented interface.
+Set the foreign key from `ZSTU_MARKS-ROLLNO` to `ZSTU_MASTER-ROLLNO`. Refer to [Phase 1: Database Setup](phase-1-database-setup.md).
 
-## Final verification
-- Activate all Dictionary and program objects.
-- Execute insert, search, update and delete using disposable test records.
-- Verify ALV columns and double-click marks popup.
-- Preview a transcript with multiple semester rows.
-- Capture real SAP GUI screenshots only after successful execution.
-- Update implementation status to distinguish completed, pending and failed tests.
+## 2. Create the ABAP reports
 
-The ABAP source templates have not been syntax-checked against the user's expired SAP system. Release-specific corrections may be needed in a fresh ECC environment.
+Open SE38 and create the programs listed in [the ABAP program catalogue](core-abap-program-catalog.md). Copy the matching source from the `src/` folder and activate the program.
+
+## 3. Create the module pool
+
+Create `Z_STUDENT_MAJOR_PROG` as a module-pool program. Add the includes `Z_STUDENT_TOP`, `Z_STUDENT_SEL` and `Z_STUDENT_F01`.
+
+Create screens 0100 and 0200 using the [Dynpro Screen Specification](dynpro-screen-specification.md). Add the GUI statuses, title bars and custom control described there.
+
+## 4. Create the transaction
+
+In SE93, create transaction `ZSTUDENT_APP` and connect it to program `Z_STUDENT_MAJOR_PROG`, screen 0100.
+
+## 5. Create the transcript form
+
+Create `Z_STUDENT_TRANSCRIPT_FORM` in Smart Forms using the fields described in the [SmartForm Specification](smartform-specification.md).
+
+## 6. Test the programs
+
+Use sample student records to try the insert, search, update, delete, validation and ALV reports. Check the semester-wise marks and transcript output as well.
