@@ -1,7 +1,8 @@
 REPORT zch_student_search.
 
 DATA: gs_student TYPE zstu_master,
-      gt_students TYPE STANDARD TABLE OF zstu_master.
+      gt_students TYPE STANDARD TABLE OF zstu_master,
+      gv_count TYPE i.
 
 PARAMETERS: p_rollno TYPE zstu_master-rollno,
             p_all AS CHECKBOX DEFAULT 'X'.
@@ -19,7 +20,8 @@ START-OF-SELECTION.
     LOOP AT gt_students INTO gs_student.
       PERFORM display_student USING gs_student.
     ENDLOOP.
-    WRITE: / 'Total students:', lines( gt_students ).
+    DESCRIBE TABLE gt_students LINES gv_count.
+    WRITE: / 'Total students:', gv_count.
   ELSE.
     IF p_rollno IS INITIAL.
       MESSAGE 'Enter a roll number or select Display All' TYPE 'S' DISPLAY LIKE 'E'.
