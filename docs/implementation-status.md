@@ -1,38 +1,53 @@
 # Implementation status
 
-This status reflects the work completed in the SAP training system as of 2026-11-07. It is not a claim that every feature has passed runtime testing.
+## Current repository status — 24 November 2026
 
-## Created
+The previous SAP practice environment has expired. Historical notes below record what had been built during earlier practice sessions, but those SAP objects are not currently accessible for verification. The GitHub source and documentation are the durable project backup.
 
-- [x] Dictionary table `ZSTU_MASTER`
-- [x] Dictionary table `ZSTU_MARKS`
-- [x] Roll-number domain and data element
-- [x] Foreign-key relationship from marks to student master
-- [x] Table Maintenance Generator for both tables
-- [x] Sample student master records entered and verified in SE16N (5 entries)
-- [x] Sample marks records entered through SM30
-- [x] Main module-pool program `Z_STUDENT_MAJOR_PROG`
-- [x] Includes `Z_STUDENT_TOP`, `Z_STUDENT_SEL`, `Z_STUDENT_F01`
-- [x] Screen 0100 with search fields and command buttons
-- [x] Screen 0200 with custom control `MY_CONTAINER`
-- [x] GUI statuses `S100` and `S200`
-- [x] Title bars `T100` and `T200`
-- [x] Transaction `ZSTUDENT_APP`
-- [x] SEARCH command reaches `FORM search_students`
-- [x] SEARCH navigation opens Screen 0200
+### Added to GitHub
 
-## In progress / not yet verified
+- [x] Core ABAP source templates using the `ZCH_` naming prefix
+- [x] Insert, search, update and delete report sources
+- [x] Basic and reusable validation examples
+- [x] Modular programming and local-class OOP examples
+- [x] ALV report and student count reports
+- [x] Parameter / selection-option example
+- [x] Semester-wise marks report
+- [x] Combined demonstration report
+- [x] Existing module-pool source package
+- [x] Database setup and relationship documentation
+- [x] Dynpro screen and GUI status specification
+- [x] SmartForm interface and layout specification
+- [x] Rebuild checklist and SAP object inventory
+- [x] Screenshot evidence checklist
 
-- [ ] Screen 0200 OO ALV currently displays a blank area; runtime debugging remains.
-- [ ] Double-click marks popup has not been successfully tested.
-- [ ] SmartForm interface and transcript layout are not complete.
-- [ ] PRINT TRANSCRIPT end-to-end execution is not verified.
-- [ ] Full application regression test is pending.
+### Not yet verified in a live SAP system
 
-## Known troubleshooting notes
+- [ ] Syntax-check and activate all `ZCH_` executable reports in the target ECC release
+- [ ] Verify active Dictionary definitions for `ZSTU_MASTER` and `ZSTU_MARKS`
+- [ ] Recreate / activate module-pool screens and GUI statuses
+- [ ] Verify OO ALV output and double-click marks popup
+- [ ] Recreate / activate the SmartForm and verify transcript preview
+- [ ] Create / verify transaction code
+- [ ] Capture genuine SAP GUI screenshots for the new repository
 
-- Screen 0100 required an OK-code field named `GV_OK_CODE`.
-- Screen 0200 navigation works and displays title bar `T200`.
-- The custom control on Screen 0200 is named `MY_CONTAINER`.
-- `ZSTU_MASTER` was verified using SE16N and returned five student rows.
-- Do not describe ALV or SmartForm functionality as completed until runtime tests pass.
+## Historical SAP practice progress
+
+The following items were recorded as created in the earlier practice environment before it expired:
+
+- Dictionary tables `ZSTU_MASTER` and `ZSTU_MARKS`
+- Roll-number domain and data element
+- Foreign-key relationship from marks to student master
+- Table Maintenance Generator objects
+- Sample student records
+- Module-pool program `Z_STUDENT_MAJOR_PROG`
+- Includes `Z_STUDENT_TOP`, `Z_STUDENT_SEL`, `Z_STUDENT_F01`
+- Screen 0100 and Screen 0200
+- GUI statuses `S100`, `S200` and title bars `T100`, `T200`
+- Transaction `ZSTUDENT_APP`
+
+The earlier Screen 0200 ALV was reported as blank during debugging. SmartForm transcript generation was not complete. These features must be implemented and tested again in a fresh SAP system.
+
+## Important
+
+The ABAP files in GitHub are source templates and have not been activated or syntax-checked in the expired SAP environment. Do not claim that the current GitHub version is fully executed or tested until it has been validated in a live SAP system.
