@@ -9,6 +9,8 @@ CLASS lcl_student_report DEFINITION.
     DATA mt_students TYPE STANDARD TABLE OF zstu_master.
 ENDCLASS.
 
+DATA go_report TYPE REF TO lcl_student_report.
+
 CLASS lcl_student_report IMPLEMENTATION.
   METHOD get_data.
     SELECT * FROM zstu_master INTO TABLE mt_students
@@ -33,7 +35,6 @@ CLASS lcl_student_report IMPLEMENTATION.
 ENDCLASS.
 
 START-OF-SELECTION.
-  DATA go_report TYPE REF TO lcl_student_report.
   CREATE OBJECT go_report.
   go_report->get_data( ).
   go_report->display_data( ).
