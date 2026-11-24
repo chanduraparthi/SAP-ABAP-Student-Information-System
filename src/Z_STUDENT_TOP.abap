@@ -1,5 +1,14 @@
 *& Global declarations for the academic management module pool.
+
+CLASS lcl_event_handler DEFINITION.
+  PUBLIC SECTION.
+    METHODS on_double_click
+      FOR EVENT double_click OF cl_gui_alv_grid
+      IMPORTING e_row e_column es_row_no.
+ENDCLASS.
+
 TABLES: zstu_master, zstu_marks.
+
 DATA: gv_ok_code TYPE sy-ucomm,
       gv_save_ok TYPE sy-ucomm,
       gv_rollno TYPE zstu_master-rollno,
@@ -12,10 +21,3 @@ DATA: gv_ok_code TYPE sy-ucomm,
       go_event_handler TYPE REF TO lcl_event_handler,
       gt_fieldcat TYPE lvc_t_fcat,
       gs_layout TYPE lvc_s_layo.
-
-CLASS lcl_event_handler DEFINITION.
-  PUBLIC SECTION.
-    METHODS on_double_click
-      FOR EVENT double_click OF cl_gui_alv_grid
-      IMPORTING e_row e_column es_row_no.
-ENDCLASS.
