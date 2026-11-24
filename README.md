@@ -73,8 +73,7 @@ See [Database Design](docs/database-design.md) for the table fields and relation
 ## Project structure
 
 - `src/` contains the ABAP programs.
-- `docs/` contains database design and SAP screen setup details.
-- `screenshots/` contains screenshots of the project in SAP GUI.
+- `docs/` contains database design, SAP screen setup and implementation notes.
 
 ## Running the project
 
