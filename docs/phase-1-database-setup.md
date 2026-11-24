@@ -98,16 +98,22 @@ Use these sample values when testing in the development client. SAP assigns the 
 
 | ROLLNO | FIRSTNAME | LASTNAME | COURSE | GENDER | EMAIL |
 |---|---|---|---|---|---|
-| STU0000001 | Asha | Rao | B.Tech CSE | F | asha.rao@example.test |
-| STU0000002 | Kiran | Kumar | B.Tech ECE | M | kiran.kumar@example.test |
+| 101 | Chandu | Raparthi | CSE | M | chandu101@example.test |
+| 102 | Mahesh | Kumar | CSE | M | mahesh102@example.test |
+| 103 | Raju | Kumar | CSE | M | raju103@example.test |
+| 104 | Ajay | Kumar | CSE | M | ajay104@example.test |
+| 105 | Samantha | Devi | CSE | F | samantha105@example.test |
 
 ### Marks examples
 
 | ROLLNO | SEMESTER | TOT_MARKS | MAX_MARKS | ATT_PCT | ZRESULT |
 |---|---:|---:|---:|---:|---|
-| STU0000001 | 01 | 850 | 1000 | 92.50 | PASS |
-| STU0000001 | 02 | 875 | 1000 | 94.00 | PASS |
-| STU0000002 | 01 | 780 | 1000 | 81.25 | PASS |
+| 101 | 01 | 850 | 1000 | 92.00 | PASS |
+| 101 | 02 | 780 | 1000 | 88.00 | PASS |
+| 102 | 01 | 850 | 1000 | 92.50 | PASS |
+| 103 | 01 | 790 | 1000 | 86.00 | PASS |
+| 104 | 01 | 810 | 1000 | 90.00 | PASS |
+| 105 | 01 | 900 | 1000 | 95.00 | PASS |
 
 The examples are fictitious and use the same roll-number format/length as the domain.
 
@@ -122,19 +128,6 @@ The examples are fictitious and use the same roll-number format/length as the do
 | Foreign key | ZSTU_MARKS → ROLLNO → Foreign Keys | Check table ZSTU_MASTER and correct field mapping |
 | Master data | SE16N → ZSTU_MASTER | Synthetic student rows visible |
 | Marks data | SE16N → ZSTU_MARKS | Semester rows visible and tied to existing students |
-
-## 7. Evidence checklist
-
-Save only genuine screenshots from the SAP system in this repository's `screenshots/` folder:
-
-- `phase1-domain-zdm-rollno.png`
-- `phase1-data-element-zde-rollno.png`
-- `phase1-table-zstu-master.png`
-- `phase1-table-zstu-marks.png`
-- `phase1-foreign-key-zstu-marks.png`
-- `phase1-se16n-test-data.png`
-
-Before committing screenshots, hide SAP system hostnames, client/user identifiers, and any real student personal information.
 
 ## Interview explanation
 
