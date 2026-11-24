@@ -1,102 +1,111 @@
-# SAP ABAP Student Information & Academic Management System
+# Chandu's SAP ABAP Student Information & Academic Management System
 
-A classic SAP ABAP module-pool application for maintaining student master data and academic marks in SAP ECC 6.0.
+A classic SAP ECC 6.0 student management project built around ABAP Dictionary, Open SQL, modular programming, local classes, ALV reporting and a module-pool application.
 
-> **Development status:** This repository documents the current implementation. The database tables, table maintenance dialogs, module-pool program structure, dynpro screens, GUI statuses, title bars, and transaction code have been created. The Screen 0200 ALV display is currently under debugging, and SmartForm transcript generation is not yet complete. Features marked pending must not be considered tested or production-ready.
+> **Project status:** This repository contains ABAP source templates and build documentation. The source has not yet been activated or syntax-tested in the user's current SAP system. SAP GUI screens, GUI statuses, SmartForms and runtime screenshots must be recreated or verified in a live SAP system before they are marked complete.
 
-## Project overview
+## Project features
 
-The application is designed to let users search student records and inspect academic results through a SAP GUI transaction.
+### Core ABAP program suite
 
-### Technology
+| Feature | Program |
+|---|---|
+| Insert student | `ZCH_STUDENT_INSERT` |
+| Search / display all | `ZCH_STUDENT_SEARCH` |
+| Update student | `ZCH_STUDENT_UPDATE` |
+| Delete student and dependent marks | `ZCH_STUDENT_DELETE` |
+| Basic input validation | `ZCH_STUDENT_VALIDATE` |
+| Reusable validation routine | `ZCH_STUDENT_REUSABLE_VALIDATE` |
+| Modular programming | `ZCH_STUDENT_MODULAR` |
+| Object-oriented ABAP | `ZCH_STUDENT_OOP` |
+| ALV report | `ZCH_STUDENT_ALV` |
+| Student count | `ZCH_STUDENT_COUNT` |
+| Parameters and selection options | `ZCH_STUDENT_PARAMS` |
+| Semester-wise marks report | `ZCH_STUDENT_MARKS_REPORT` |
+| Combined demonstration | `ZCH_STUDENT_MGMT` |
+
+### Advanced academic management application
+
+The larger project design includes:
+- Student master data and semester-wise academic records
+- Search by roll number / course
+- OO ALV display using `CL_GUI_ALV_GRID`
+- Double-click navigation to semester marks
+- Official transcript preview using SAP Smart Forms
+- Module-pool screens and transaction code
+
+## Technology
 
 - SAP ECC 6.0
-- ABAP (Module Pool / Dynpro)
+- Classic ABAP / Open SQL
 - ABAP Dictionary (SE11)
-- Table Maintenance Generator (SM30)
 - SAP GUI Screen Painter (SE51)
 - Menu Painter (SE41)
-- OO ALV using `CL_GUI_ALV_GRID`
-- SAP Smart Forms (planned / in progress)
+- Table Maintenance Generator (SE54 / SM30)
+- ALV Grid / Control Framework
+- Smart Forms
 
-## Repository structure
+## Repository layout
 
 ```text
 .
 ├── README.md
+├── src/
+│   ├── zch_student_insert.abap
+│   ├── zch_student_search.abap
+│   ├── zch_student_update.abap
+│   ├── zch_student_delete.abap
+│   ├── zch_student_validate.abap
+│   ├── zch_student_reusable_validate.abap
+│   ├── zch_student_modular.abap
+│   ├── zch_student_oop.abap
+│   ├── zch_student_alv.abap
+│   ├── zch_student_count.abap
+│   ├── zch_student_params.abap
+│   ├── zch_student_marks_report.abap
+│   ├── zch_student_mgmt.abap
+│   └── module-pool source files
 ├── docs/
 │   ├── architecture.md
 │   ├── database-design.md
-│   ├── implementation-status.md
+│   ├── core-abap-program-catalog.md
+│   ├── phase-1-database-setup.md
+│   ├── dynpro-screen-specification.md
+│   ├── smartform-specification.md
+│   ├── rebuild-checklist.md
+│   ├── sap-object-inventory.md
+│   ├── erd.md
 │   └── testing.md
-├── src/
-│   └── README.md
 └── screenshots/
     └── README.md
 ```
 
-## Data model
+## Database design
 
-### `ZSTU_MASTER`
+The application uses two client-dependent transparent tables:
 
-| Field | Purpose |
-|---|---|
-| MANDT | SAP client |
-| ROLLNO | Student roll number (key) |
-| FIRSTNAME | First name |
-| LASTNAME | Last name |
-| COURSE | Course / department |
-| GENDER | Gender code |
-| EMAIL | Email address |
+- `ZSTU_MASTER`: student roll number, name, course, gender and email.
+- `ZSTU_MARKS`: roll number, semester, marks obtained, maximum marks, attendance percentage and result.
 
-### `ZSTU_MARKS`
+The roll number is represented by `ZDE_ROLLNO` based on `ZDM_ROLLNO`. The child table's foreign key points to the student master. See [database design](docs/database-design.md) and [ER diagram](docs/erd.md).
 
-| Field | Purpose |
-|---|---|
-| MANDT | SAP client |
-| ROLLNO | Student roll number (key; foreign key to `ZSTU_MASTER`) |
-| SEMESTER | Semester number (key) |
-| TOT_MARKS | Marks obtained |
-| MAX_MARKS | Maximum marks |
-| ATT_PCT | Attendance percentage |
-| ZRESULT | Result |
+## Getting started
 
-## ABAP objects created
+1. Read [the database setup guide](docs/phase-1-database-setup.md).
+2. Confirm the active Dictionary definitions in the target SAP system.
+3. Copy the required report source from `src/` into matching executable programs in SE38 / SE80.
+4. Activate and test each report using synthetic records.
+5. Follow the [module-pool rebuild checklist](docs/rebuild-checklist.md) for screens, statuses, transaction and SmartForm objects.
+6. Capture genuine SAP GUI screenshots and add them under `screenshots/`.
 
-| Object | Description |
-|---|---|
-| `Z_STUDENT_MAJOR_PROG` | Main module-pool program |
-| `Z_STUDENT_TOP` | Global declarations and event-handler definition |
-| `Z_STUDENT_SEL` | PBO / PAI modules |
-| `Z_STUDENT_F01` | Forms and event-handler implementation |
-| Screen `0100` | Student search screen |
-| Screen `0200` | Academic records screen with custom control `MY_CONTAINER` |
-| GUI statuses `S100`, `S200` | Screen-specific function statuses |
-| Title bars `T100`, `T200` | Screen titles |
-| Transaction `ZSTUDENT_APP` | Starts screen 0100 |
-| `ZFG_STUDENT` | Table maintenance function group for student master |
-| `ZFG_STUMARKS` | Table maintenance function group for marks |
+## Important notes
 
-## Current implementation status
-
-See [docs/implementation-status.md](docs/implementation-status.md) for the detailed status and known issues.
-
-## Running the project
-
-This project was developed in a SAP ECC 6.0 training system. It is not a standalone application. To reproduce it, create/transport the Dictionary objects, ABAP module pool, dynpro screens, GUI statuses, and transaction in an SAP system with the required authorizations.
-
-The source files for the ABAP objects will be added under `src/` after export from the SAP system. Screen and runtime evidence will be added under `screenshots/`.
-
-## Security and data
-
-- Do not commit SAP passwords, connection details, access tokens, or other credentials.
-- Use synthetic student data in screenshots and examples.
-- Do not publish real student personal information.
+- These files are source templates, not a transport request or automatic installer.
+- Classic SAP repository objects such as transparent tables, dynpros, GUI statuses and SmartForms must be created in SAP.
+- The standalone CRUD reports change database data. Test only in a development client with synthetic data.
+- Never commit credentials or real student personal information.
+- Do not label a feature as tested until it has been activated and executed successfully in SAP.
 
 ## Author
 
-Chandu Raparthi
-
-## License
-
-No license has been added yet. All rights remain with the author unless a license is added.
+**Chandu Raparthi**
