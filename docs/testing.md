@@ -20,7 +20,3 @@
 | Search with both fields blank | All student master records appear |
 | Double-click student row | Semester marks popup opens |
 | Print transcript | SmartForm generates a transcript |
-
-## Evidence to add
-
-Place sanitized screenshots in `screenshots/`. Remove or obscure SAP system addresses, user names, client identifiers, and any real personal data before publishing.
